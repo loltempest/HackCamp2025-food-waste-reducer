@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { uploadWasteImage } from '../services/api';
 
 function ImageUpload({ onSuccess }) {
@@ -8,8 +8,12 @@ function ImageUpload({ onSuccess }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
+  const [stream, setStream] = useState(null);
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -56,6 +60,63 @@ function ImageUpload({ onSuccess }) {
       }
     }
   };
+
+  const startCamera = async () => {
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: 'environment' } 
+      });
+      setStream(mediaStream);
+      setShowCamera(true);
+      setError(null);
+      
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = mediaStream;
+        }
+      }, 100);
+    } catch (err) {
+      setError('Camera access denied. Please allow camera permissions or use file upload.');
+    }
+  };
+
+  const stopCamera = () => {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      setStream(null);
+    }
+    setShowCamera(false);
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0);
+      
+      canvas.toBlob((blob) => {
+        const file = new File([blob], `camera-${Date.now()}.jpg`, { type: 'image/jpeg' });
+        setImage(file);
+        setPreview(URL.createObjectURL(file));
+        setResult(null);
+        setError(null);
+        stopCamera();
+      }, 'image/jpeg', 0.95);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [stream]);
 
   const handleCameraCapture = () => {
     cameraInputRef.current?.click();
@@ -168,7 +229,14 @@ function ImageUpload({ onSuccess }) {
                       📁 Choose File
                     </span>
                   </label>
-                  <label className="cursor-pointer">
+                  <button
+                    type="button"
+                    onClick={startCamera}
+                    className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    📸 Use Camera
+                  </button>
+                  <label className="cursor-pointer md:hidden">
                     <input
                       ref={cameraInputRef}
                       type="file"
@@ -177,14 +245,44 @@ function ImageUpload({ onSuccess }) {
                       onChange={handleFileSelect}
                       className="hidden"
                     />
-                    <span className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                      📸 Take Photo
+                    <span className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                      📱 Mobile Camera
                     </span>
                   </label>
                 </div>
               </div>
             )}
           </div>
+
+          {showCamera && (
+            <div className="bg-gray-900 rounded-lg p-4 space-y-4">
+              <div className="relative">
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  className="w-full rounded-lg"
+                />
+                <canvas ref={canvasRef} className="hidden" />
+              </div>
+              <div className="flex gap-4 justify-center">
+                <button
+                  type="button"
+                  onClick={capturePhoto}
+                  className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  📸 Capture Photo
+                </button>
+                <button
+                  type="button"
+                  onClick={stopCamera}
+                  className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  ✖️ Cancel
+                </button>
+              </div>
+            </div>
+          )}
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
