@@ -83,7 +83,8 @@ function WasteHistory({ refreshKey }) {
             <div className="text-sm">Refresh site to see changes</div>
           </div>
         )}
-        <div className="text-center py-12 bg-white rounded-lg shadow">
+        <div  id="history-section"
+              className="text-center py-12 bg-white rounded-lg shadow">
           <div className="text-6xl mb-4">📋</div>
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
             No waste entries yet
@@ -98,7 +99,8 @@ function WasteHistory({ refreshKey }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center mb-4">
+      <div  id="waste-history"
+            className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold text-gray-900">
           Waste History
         </h2>

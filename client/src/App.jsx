@@ -34,6 +34,28 @@ function App() {
     setActiveTab('history');
   };
 
+  const switchTab = (tabId) => {
+    setActiveTab(tabId);
+    var scrollTo = null;
+    switch (tabId) {
+      case 'upload':
+        scrollTo = document.getElementById("upload-section")
+        break;
+      case 'history':
+        scrollTo = document.getElementById("history-section")
+        break;
+      case 'analytics':
+        scrollTo = document.getElementById("analytics-section")
+        break;
+      case 'suggestions':
+        scrollTo = document.getElementById("suggestions-section")
+        break;
+      default:
+        break;
+    }
+    scrollTo?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -53,14 +75,14 @@ function App() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <button
-                onClick={() => setActiveTab('upload')}
+                onClick={() => switchTab('upload')}
                 className="inline-flex items-center rounded-lg bg-emerald-600 text-white px-6 py-3 text-base font-medium shadow-md hover:shadow-lg hover:bg-emerald-700 transition-all"
               >
                 <Camera className="mr-2 h-5 w-5" />
                 Start Analyzing
               </button>
               <button
-                onClick={() => setActiveTab('analytics')}
+                onClick={() => switchTab('analytics')}
                 className="inline-flex items-center rounded-lg border border-emerald-300 text-emerald-700 px-6 py-3 text-base hover:bg-emerald-50 transition-colors"
               >
                 <BarChart3 className="mr-2 h-5 w-5" />
@@ -85,7 +107,7 @@ function App() {
             ].map(tab => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => switchTab(tab.id)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
                   activeTab === tab.id
                     ? 'border-emerald-600 text-emerald-700'

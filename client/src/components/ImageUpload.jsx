@@ -168,7 +168,8 @@ function ImageUpload({ onSuccess }) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white rounded-lg shadow-lg p-6">
+      <div  id="upload-section"
+            className="bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
           Upload Food Waste Photo
         </h2>
@@ -364,7 +365,6 @@ function ImageUpload({ onSuccess }) {
           )}
 
           <button
-            id="analysis-button"
             type="submit"
             disabled={!image || uploading}
             className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"

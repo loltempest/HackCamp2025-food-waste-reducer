@@ -1,7 +1,7 @@
 function Suggestions({ suggestions }) {
   if (!suggestions || suggestions.length === 0) {
     return (
-      <div className="text-center py-12 bg-white rounded-lg shadow">
+      <div  className="text-center py-12 bg-white rounded-lg shadow">
         <div className="text-6xl mb-4">💡</div>
         <h3 className="text-xl font-semibold text-gray-900 mb-2">
           No suggestions yet
@@ -100,7 +100,8 @@ function Suggestions({ suggestions }) {
         ))}
       </div>
 
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6 mt-6">
+      <div  id="suggestions-section"
+            className="bg-green-50 border border-green-200 rounded-lg p-6 mt-6">
         <h3 className="font-semibold text-green-900 mb-2">
           💚 How These Suggestions Work
         </h3>
