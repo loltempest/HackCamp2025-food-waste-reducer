@@ -208,7 +208,7 @@ function ImageUpload({ onSuccess }) {
             ) : (
               <div className="space-y-4">
                 <div className="text-6xl">{isDragging ? '⬇️' : '📷'}</div>
-                <div>
+                <div className="image-upload-instructions">
                   <p className="text-lg font-medium text-gray-700">
                     {isDragging ? 'Drop image here' : 'Drag & drop, take a photo, or upload an image'}
                   </p>
@@ -364,6 +364,7 @@ function ImageUpload({ onSuccess }) {
           )}
 
           <button
+            id="analysis-button"
             type="submit"
             disabled={!image || uploading}
             className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
