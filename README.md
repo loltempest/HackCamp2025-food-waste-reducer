@@ -99,7 +99,3 @@ An AI-powered web application that helps restaurants and cafeterias track and re
 - Mobile app version
 
 
-yo gurt
-gurt yo
-
-
