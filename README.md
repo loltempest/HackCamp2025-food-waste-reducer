@@ -1,15 +1,15 @@
-# Food Waste Reducer 🍽️
+# Food Waste Reducer 
 
 An AI-powered web application that helps restaurants and cafeterias track and reduce food waste by analyzing photos of wasted food using Google's Gemini Vision API.
 
 ## Features
 
-- 📸 **Photo Upload**: Capture or upload photos of food waste using mobile devices
-- 🤖 **AI Analysis**: Automatically identifies wasted food items using Gemini Vision
-- 📊 **Analytics Dashboard**: Visualize waste trends, top wasted items, and category breakdowns
-- 💡 **AI Suggestions**: Receive actionable recommendations for portion adjustments and menu changes
-- 📋 **Waste History**: Track all waste entries with detailed item information
-- 💰 **Value Tracking**: Estimate the monetary value of wasted food
+-  **Photo Upload**: Capture or upload photos of food waste using mobile devices
+-  **AI Analysis**: Automatically identifies wasted food items using Gemini Vision
+-  **Analytics Dashboard**: Visualize waste trends, top wasted items, and category breakdowns
+-  **AI Suggestions**: Receive actionable recommendations for portion adjustments and menu changes
+-  **Waste History**: Track all waste entries with detailed item information
+-  **Value Tracking**: Estimate the monetary value of wasted food
 
 ## Tech Stack
 
