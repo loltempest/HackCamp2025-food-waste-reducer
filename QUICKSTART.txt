@@ -1,0 +1,37 @@
+FOOD WASTE REDUCER - QUICK START GUIDE
+=======================================
+
+1. INSTALL DEPENDENCIES
+   Run: npm run install-all
+
+2. SET UP ENVIRONMENT
+   Create a .env file in the root directory:
+   GEMINI_API_KEY=your_key_here
+   PORT=3001
+
+3. GET GEMINI API KEY (FREE!)
+   - Visit: https://aistudio.google.com/app/apikey
+   - Sign in with Google account
+   - Click "Create API Key"
+   - Copy and paste in .env file
+
+4. START THE APP
+   Run: npm run dev
+   
+   This starts:
+   - Frontend: http://localhost:3000
+   - Backend: http://localhost:3001
+
+5. USE THE APP
+   - Open http://localhost:3000 in your browser
+   - Click "📸 Upload Waste" tab
+   - Take/upload photo of food waste
+   - View analysis, analytics, and suggestions!
+
+That's it! 🎉
+
+
+
+
+
+
