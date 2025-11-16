@@ -7,6 +7,7 @@ function ImageUpload({ onSuccess }) {
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
 
@@ -17,6 +18,42 @@ function ImageUpload({ onSuccess }) {
       setPreview(URL.createObjectURL(file));
       setResult(null);
       setError(null);
+    }
+  };
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      if (file.type.startsWith('image/')) {
+        setImage(file);
+        setPreview(URL.createObjectURL(file));
+        setResult(null);
+        setError(null);
+      } else {
+        setError('Please drop an image file (JPG, PNG)');
+      }
     }
   };
 
@@ -76,7 +113,17 @@ function ImageUpload({ onSuccess }) {
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-green-400 transition-colors">
+          <div 
+            className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+              isDragging 
+                ? 'border-green-500 bg-green-50' 
+                : 'border-gray-300 hover:border-green-400'
+            }`}
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
             {preview ? (
               <div className="space-y-4">
                 <img
@@ -99,10 +146,10 @@ function ImageUpload({ onSuccess }) {
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="text-6xl">📷</div>
+                <div className="text-6xl">{isDragging ? '⬇️' : '📷'}</div>
                 <div>
                   <p className="text-lg font-medium text-gray-700">
-                    Take a photo or upload an image
+                    {isDragging ? 'Drop image here' : 'Drag & drop, take a photo, or upload an image'}
                   </p>
                   <p className="text-sm text-gray-500 mt-1">
                     Supported formats: JPG, PNG (max 10MB)
