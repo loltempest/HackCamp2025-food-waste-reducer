@@ -66,7 +66,7 @@ function App() {
               <TrendingDown className="h-4 w-4" />
               <span className="text-sm font-medium">AI-Powered Waste Reduction</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-emerald-500 to-lime-500 bg-clip-text text-transparent">
+            <h1 className="text-6xl md:text-5x1 font-bold mb-3 bg-gradient-to-r from-emerald-500 to-lime-500 bg-clip-text text-transparent py-4">
               ScrapSnap AI
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
